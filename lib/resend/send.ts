@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import { resend } from './client'
+import { getResend } from './client'
 import { WelcomeEmail } from '@/emails/welcome'
 import { OrgInviteEmail } from '@/emails/org-invite'
 import { PaymentFailedEmail } from '@/emails/payment-failed'
@@ -9,7 +9,7 @@ import { SubscriptionCancelledEmail } from '@/emails/subscription-cancelled'
 const FROM = process.env.RESEND_FROM_EMAIL!
 
 export async function sendWelcomeEmail(to: string, props: { name: string }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: 'Welcome!',
@@ -21,7 +21,7 @@ export async function sendOrgInviteEmail(
   to: string,
   props: { orgName: string; inviterName: string; inviteUrl: string }
 ) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `You've been invited to ${props.orgName}`,
@@ -33,7 +33,7 @@ export async function sendPaymentFailedEmail(
   to: string,
   props: { orgName: string; amount: string }
 ) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: 'Payment failed — action required',
@@ -45,7 +45,7 @@ export async function sendPaymentSuccessEmail(
   to: string,
   props: { orgName: string; amount: string; period: string }
 ) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: 'Payment confirmed',
@@ -57,7 +57,7 @@ export async function sendSubscriptionCancelledEmail(
   to: string,
   props: { orgName: string; plan: string }
 ) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: 'Your subscription has been cancelled',
